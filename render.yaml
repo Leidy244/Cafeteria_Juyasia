@@ -1,4 +1,5 @@
 services:
+  # ============ BACKEND ============
   - type: web
     name: cafeteria-backend
     runtime: node
@@ -11,12 +12,14 @@ services:
       - key: PORT
         value: 10000
       - key: DB_PATH
-        value: ./data/cafeteria.db  
+        value: ./data/cafeteria.db
 
-  - type: static
+  # ============ FRONTEND ============
+  - type: web
     name: cafeteria-frontend
+    runtime: node
     buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
+    startCommand: npx serve -s dist -l 10000
     rootDir: ./cafeteria-app
     envVars:
       - key: VITE_API_URL
